@@ -92,7 +92,22 @@
                       <% end %>
                     </div>
                     <% if item[:card]["board"].present? %>
-                      <p class="text-sm text-gray-500 mb-3">Board: <%= item[:card]["board"]["name"] %></p>
+                      <div class="mb-3">
+                        <p class="text-sm text-gray-500 mb-1">Board:</p>
+                        <% if item[:card]["board"]["url"].present? %>
+                          <%= link_to item[:card]["board"]["url"], target: "_blank", rel: "noopener noreferrer", class: "inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 transition text-sm font-medium" do %>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                            <%= item[:card]["board"]["name"] %>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                          <% end %>
+                        <% else %>
+                          <span class="text-sm text-gray-700"><%= item[:card]["board"]["name"] %></span>
+                        <% end %>
+                      </div>
                     <% end %>
                     <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-4 border border-indigo-200">
                       <p class="text-xs font-medium text-gray-600 mb-2">Branch Name:</p>
@@ -140,7 +155,19 @@
               <% end %>
             </p>
             <% if @card["board"].present? %>
-              <p><span class="font-medium">Board:</span> <%= @card["board"]["name"] %></p>
+              <p>
+                <span class="font-medium">Board:</span>
+                <% if @card["board"]["url"].present? %>
+                  <%= link_to @card["board"]["url"], target: "_blank", rel: "noopener noreferrer", class: "text-indigo-600 hover:text-indigo-800 hover:underline inline-flex items-center gap-1 ml-1" do %>
+                    <%= @card["board"]["name"] %>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                  <% end %>
+                <% else %>
+                  <span class="ml-1"><%= @card["board"]["name"] %></span>
+                <% end %>
+              </p>
             <% end %>
           </div>
         </div>
