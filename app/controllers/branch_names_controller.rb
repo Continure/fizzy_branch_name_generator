@@ -4,6 +4,7 @@ class BranchNamesController < ApplicationController
     @access_token = FizzyConfig.access_token || session[:fizzy_access_token] || params[:access_token]
     @account_slug = params[:account_slug]
     @card_number = params[:card_number]
+    @platform = params[:platform] || "dashboard"
 
     return load_accounts unless @access_token.present?
 
@@ -44,7 +45,8 @@ class BranchNamesController < ApplicationController
         card: card,
         branch_name: BranchName::Generator.new(
           task_name: card["title"],
-          task_number: card["number"]
+          task_number: card["number"],
+          platform: @platform
         ).generate
       }
     end
@@ -56,7 +58,8 @@ class BranchNamesController < ApplicationController
 
     @branch_name = BranchName::Generator.new(
       task_name: @card["title"],
-      task_number: @card["number"]
+      task_number: @card["number"],
+      platform: @platform
     ).generate
   end
 

@@ -1,9 +1,10 @@
 class BranchName::Generator
-  private attr_reader :task_name, :task_number
+  private attr_reader :task_name, :task_number, :platform
 
-  def initialize(task_name:, task_number:)
+  def initialize(task_name:, task_number:, platform: :dashboard)
     @task_name = task_name
     @task_number = task_number
+    @platform = platform.to_sym
   end
 
   def generate
@@ -15,7 +16,8 @@ class BranchName::Generator
     slug = slug.gsub(/-+/, '-')
     slug = slug.gsub(/^-+|-+$/, '')
 
-    "#{task_number}-#{slug}"
+    prefix = platform == :mobile ? "mob-" : ""
+    "#{task_number}-#{prefix}#{slug}"
   end
 end
 
